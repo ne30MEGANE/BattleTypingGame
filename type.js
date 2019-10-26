@@ -18,8 +18,12 @@ let gameArea;
 let errorArea;
 let startButton;
 
+//問題用の内部データ
+let diffNumber;
+
 function Main() {
     gameArea = document.getElementById("gamearea");
+    targetArea = document.getElementById('targetarea');
     errorArea = document.getElementById('error');
     difficulty = document.getElementsByName('diff');
 
@@ -35,10 +39,35 @@ function buttonAction() {
             break;
         }
     }
+    createTarget(selectedDiff); //問題数決定
     if (selectedDiff == undefined) { // 未選択の時
         errorArea.innerHTML = "難易度を選んでください。";
     } else {
-        // aには選択状態の値が代入されている
-        console.log(selectedDiff);
+
     }
+
+}
+
+function createTarget(d) {
+    switch (d) {
+        case "EASY":
+            diffNumber = 5;
+            break;
+        case "NORMAL":
+            diffNumber = 10;
+            break;
+        case "HARD":
+            diffNumber = 20;
+            break;
+        default: //難易度を選ばずにスタートが押されたとき
+            break;
+    }
+}
+
+function randomAlphabet(n) {
+    let ans = new Array;
+    for (let i = 0; i < n; i++) {
+        ans[i] = Math.floor(Math.random() * 26);
+    }
+    return ans;
 }

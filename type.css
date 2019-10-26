@@ -41,9 +41,8 @@
       padding: 5px;
   }
   
-  #twitter {
-      text-align: center;
-      margin: 20px;
+  #error {
+      color: #c25067;
   }
   
   footer a:link {
