@@ -1,54 +1,75 @@
-  body,
-  #wrapper {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-  }
-  
-  #info {
-      margin-bottom: auto;
-  }
-  
-  footer {
-      margin-top: auto;
-  }
-  
-  body {
-      margin: 0 15%;
-      text-align: center;
-      background-color: #edeff1;
-      color: #586a66;
-  }
-  
-  h1 {
-      color: white;
-      background-color: #ff8fa5;
-  }
-  
-  #gamearea {
-      background-color: white;
-      margin: 10px 5%;
-      font-size: 34px;
-      margin-top: 20px;
-      padding: 25px;
-  }
-  
-  #data {
-      text-align: right;
-      background-color: white;
-      font-size: 20px;
-      margin: 0px;
-      padding: 5px;
-  }
-  
-  #error {
-      color: #c25067;
-  }
-  
-  footer a:link {
-      color: #c25067;
-  }
-  
-  footer a:visited {
-      color: #682a37;
-  }
+body {
+    text-align: center;
+    background-color: #edeff1;
+    color: #586a66;
+}
+
+h1 {
+    color: white;
+    background-color: #ff8fa5;
+    border-bottom: solid #c25067 7px;
+    margin: 0 15%;
+    padding: 5px;
+}
+
+#difficulty {
+    margin: 2% 5%;
+}
+
+#error {
+    color: #c25067;
+}
+
+#gamearea {
+    background-color: white;
+    margin: 5% 20%;
+    height: 500px;
+    min-width: 600px;
+    font-size: 34px;
+    margin-top: 20px;
+    border: #586a66 solid 5px;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr;
+}
+
+#targetarea {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+#enemy {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+#myunit {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+#battleinfo {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+#info,
+#howto {
+    margin: 2% 15%;
+}
+
+h2 {
+    border-bottom: dashed #ff8fa5 3px;
+}
+
+footer {
+    padding-top: 10px;
+}

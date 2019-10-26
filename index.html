@@ -12,12 +12,6 @@
 
 <body>
     <h1>タイプでバトルゲーム</h1>
-    <div id="howto">
-        <h2>遊び方</h2>
-        <p>
-            次々現れるアルファベットを正しくタイピングして敵を倒そう！<br> 世界の平和を守るのは君だ！
-        </p>
-    </div>
 
     <form id="difficulty">
         <label><input type="radio" name="diff" value="EASY">EASY</label>
@@ -31,19 +25,37 @@
 
     <div id="gamearea">
         <!--ゲームの画面が出る場所-->
-        <p id="targetarea"></p>
+        <div id="targetarea">
+            <p>問題</p>
+        </div>
+        <div id="enemy">
+            <p>敵</p>
+            <!-- <img src="resources/enemy.jpeg"> -->
+        </div>
+        <div id="myunit">
+            <p>自分</p>
+            <!-- <img src="resources/myunit.jpeg"> -->
+        </div>
+        <div id="battleinfo">
+            <p>ライフとかの情報</p>
+        </div>
     </div>
 
 
+    <div id="howto">
+        <h2>遊び方</h2>
+        <p>
+            次々現れるアルファベットを正しくタイピングして敵を倒そう！<br> 世界の平和を守るのは君だ！
+        </p>
+    </div>
 
-    <div id="info ">
+    <div id="info">
         <h2>更新情報</h2>
         <p>
             虚無
         </p>
     </div>
-    <footer class="mf_footer ">
-        <a href="https://ne30megane.github.io/SimpleTypingGame/ " target=" _blank ">タイピングの速さと正確さに挑戦してみる?</a>
+    <footer>
         <p>制作 めがね<a href="https://twitter.com/kina_tn ">@kina_tn</a></p>
     </footer>
 

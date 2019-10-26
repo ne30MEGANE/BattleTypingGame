@@ -20,6 +20,9 @@ let startButton;
 
 //問題用の内部データ
 let diffNumber;
+let words = new Array;
+let enemys = new Array("resources/enemy.jpeg");
+let myunit = new Array("resources/myunit.jpeg");
 
 function Main() {
     gameArea = document.getElementById("gamearea");
@@ -39,11 +42,10 @@ function buttonAction() {
             break;
         }
     }
-    createTarget(selectedDiff); //問題数決定
     if (selectedDiff == undefined) { // 未選択の時
         errorArea.innerHTML = "難易度を選んでください。";
     } else {
-
+        createTarget(selectedDiff); //問題数決定
     }
 
 }
@@ -62,9 +64,11 @@ function createTarget(d) {
         default: //難易度を選ばずにスタートが押されたとき
             break;
     }
+    words = randomAlphabet(diffNumber); //問題を生成する
+    console.log(words);
 }
 
-function randomAlphabet(n) {
+function randomAlphabet(n) { //ランダムなアルファベットをn文字決定し配列で返す
     let ans = new Array;
     for (let i = 0; i < n; i++) {
         ans[i] = Math.floor(Math.random() * 26);
