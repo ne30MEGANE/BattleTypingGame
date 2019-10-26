@@ -19,6 +19,7 @@ let errorArea;
 let startButton;
 
 //問題用の内部データ
+let nowplaying = false;
 let diffNumber;
 let words = new Array;
 let enemys = new Array("resources/enemy.jpeg");
@@ -36,16 +37,22 @@ function Main() {
 
 function buttonAction() {
     errorArea.innerHTML = "";
-    for (let i = 0; i < difficulty.length; i++) { //難易度を取得
-        if (difficulty[i].checked) {
-            selectedDiff = difficulty[i].value;
-            break;
+    if (!nowplaying) { //プレイ中はスタートボタンが機能しないように
+        for (let i = 0; i < difficulty.length; i++) { //難易度を取得
+            if (difficulty[i].checked) {
+                selectedDiff = difficulty[i].value;
+                break;
+            }
         }
-    }
-    if (selectedDiff == undefined) { // 未選択の時
-        errorArea.innerHTML = "難易度を選んでください。";
+        if (selectedDiff == undefined) { // 未選択の時
+            errorArea.innerHTML = "難易度を選んでください。";
+        } else {
+            nowplaying = true;
+            createTarget(selectedDiff); //問題数決定
+            changingDisable();
+        }
     } else {
-        createTarget(selectedDiff); //問題数決定
+        errorArea.innerHTML = "プレイ中です";
     }
 
 }
@@ -74,4 +81,19 @@ function randomAlphabet(n) { //ランダムなアルファベットをn文字決
         ans[i] = Math.floor(Math.random() * 26);
     }
     return ans;
+}
+
+function changingDisable() {
+    let forms = new Array(document.getElementById('easy'),
+        document.getElementById('normal'),
+        document.getElementById('hard'));
+    if (nowplaying) {
+        for (let i = 0; i < 3; i++) {
+            forms[i].disabled = true;
+        }
+    } else {
+        for (let i = 0; i < 3; i++) {
+            forms[i].disabled = false;
+        }
+    }
 }
