@@ -1,13 +1,13 @@
 window.onload = Main;
-// document.onkeydown = typeGame;
+document.onkeydown = typeGame;
 
 //文字を格納する配列
-var moji = new Array("Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ", "Ｇ", "Ｈ", "Ｉ",
+var Alphabet = new Array("Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ", "Ｇ", "Ｈ", "Ｉ",
     "Ｊ", "Ｋ", "Ｌ", "Ｍ", "Ｎ", "Ｏ", "Ｐ", "Ｑ", "Ｒ",
     "Ｓ", "Ｔ", "Ｕ", "Ｖ", "Ｗ", "Ｘ", "Ｙ", "Ｚ");
 
 //キーコードを格納する配列
-var kcode = new Array(65, 66, 67, 68, 69, 70, 71, 72, 73,
+var keyCode = new Array(65, 66, 67, 68, 69, 70, 71, 72, 73,
     74, 75, 76, 77, 78, 79, 80, 81, 82,
     83, 84, 85, 86, 87, 88, 89, 90);
 
@@ -17,10 +17,15 @@ let selectedDiff;
 let gameArea;
 let errorArea;
 let startButton;
+let enemyInfo;
+let myInfo;
 
 //問題用の内部データ
-let nowplaying = false;
-let diffNumber;
+let nowplaying = false; //今プレイ中かどうか
+let diffNumber; //難易度に応じて決まる内部用データ
+let questNumber = 0; //今何問目か
+let Max = 5; //満タン状態のHP設定
+let HP = Max;
 let words = new Array;
 let enemys = new Array("resources/enemy.jpeg");
 let myunit = new Array("resources/myunit.jpeg");
@@ -30,9 +35,11 @@ function Main() {
     targetArea = document.getElementById('targetarea');
     errorArea = document.getElementById('error');
     difficulty = document.getElementsByName('diff');
-
     startButton = document.getElementById('startbutton');
     startButton.addEventListener("click", buttonAction);
+
+    enemyInfo = document.getElementById('enemyinfo');
+    myInfo = document.getElementById('myinfo');
 }
 
 function buttonAction() {
@@ -49,7 +56,8 @@ function buttonAction() {
         } else {
             nowplaying = true;
             createTarget(selectedDiff); //問題数決定
-            changingDisable();
+            changingDisable(); //ラジオボタンの入力を遮断
+            setInfomation(); //敵の数とHP表示
         }
     } else {
         errorArea.innerHTML = "プレイ中です";
@@ -72,7 +80,6 @@ function createTarget(d) {
             break;
     }
     words = randomAlphabet(diffNumber); //問題を生成する
-    console.log(words);
 }
 
 function randomAlphabet(n) { //ランダムなアルファベットをn文字決定し配列で返す
@@ -95,5 +102,42 @@ function changingDisable() {
         for (let i = 0; i < 3; i++) {
             forms[i].disabled = false;
         }
+    }
+}
+
+function setInfomation() {
+    questNumber = 0; //最初の問題に戻す
+    HP = Max; //HPをマックすに戻す
+    targetArea.innerHTML = Alphabet[words[questNumber]]; //1問目を表示
+    enemyInfo.innerHTML = "あと " + (diffNumber - questNumber) + "体";
+    myInfo.innerHTML = "HP: " + HP + "/5"
+}
+
+function typeGame(evt) {
+    let inKey; //入力されたキーのコード
+    inKey = event.keyCode;
+
+    if (nowplaying) { //プレイ中以外はいらない
+        if (inKey == keyCode[words[questNumber]]) { //正解のとき
+            questNumber += 1; //次の問題番号へ
+            enemyInfo.innerHTML = "あと " + (diffNumber - questNumber) + "体";
+            if (questNumber > diffNumber - 1) { //最後の問題をクリアしていたら
+                targetArea.innerHTML = "クリア！"
+                nowplaying = false; //プレイ終了状態
+                changingDisable(); //ラジオボタンを選べるようにする
+            } else {
+                targetArea.innerHTML = Alphabet[words[questNumber]];
+            }
+        } else { //不正解のとき
+            if (HP > 0) { //まだ死なないとき
+                HP -= 1;
+                myInfo.innerHTML = "HP: " + HP + "/5"
+            } else { //もう死ぬとき
+                myInfo.innerHTML = "死んでしまった！"
+                nowplaying = false; //プレイ終了状態
+                changingDisable(); //ラジオボタンを選べるようにする
+            }
+        }
+
     }
 }
