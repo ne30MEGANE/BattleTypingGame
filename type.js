@@ -19,16 +19,15 @@ let errorArea;
 let startButton;
 let enemyInfo;
 let myInfo;
+let enemyArea;
 
 //問題用の内部データ
 let nowplaying = false; //今プレイ中かどうか
 let diffNumber; //難易度に応じて決まる内部用データ
 let questNumber = 0; //今何問目か
-let Max = 5; //満タン状態のHP設定
+let Max = 3; //満タン状態のHP設定
 let HP = Max;
 let words = new Array;
-let enemys = new Array("resources/enemy.jpeg");
-let myunit = new Array("resources/myunit.jpeg");
 
 function Main() {
     gameArea = document.getElementById("gamearea");
@@ -38,8 +37,9 @@ function Main() {
     startButton = document.getElementById('startbutton');
     startButton.addEventListener("click", buttonAction);
 
-    enemyInfo = document.getElementById('enemyinfo');
-    myInfo = document.getElementById('myinfo');
+    enemyInfo = document.getElementById('inforight');
+    myInfo = document.getElementById('infoleft');
+    enemyArea = document.getElementById('enemy');
 }
 
 function buttonAction() {
@@ -58,6 +58,7 @@ function buttonAction() {
             createTarget(selectedDiff); //問題数決定
             changingDisable(); //ラジオボタンの入力を遮断
             setInfomation(); //敵の数とHP表示
+            enemyArea.className = "mon1"; //画像の表示
         }
     } else {
         errorArea.innerHTML = "プレイ中です";
@@ -109,8 +110,8 @@ function setInfomation() {
     questNumber = 0; //最初の問題に戻す
     HP = Max; //HPをマックスに戻す
     targetArea.innerHTML = Alphabet[words[questNumber]]; //1問目を表示
-    enemyInfo.innerHTML = "あと " + (diffNumber - questNumber) + "体";
-    myInfo.innerHTML = "HP: " + HP + "/5"
+    enemyInfo.innerHTML = "あと " + (diffNumber - questNumber) + "回";
+    myInfo.innerHTML = "あなたのHP: " + HP + "/" + Max;
 }
 
 function typeGame(evt) {
@@ -120,20 +121,24 @@ function typeGame(evt) {
     if (nowplaying) { //プレイ中以外はいらない
         if (inKey == keyCode[words[questNumber]]) { //正解のとき
             questNumber += 1; //次の問題番号へ
-            enemyInfo.innerHTML = "あと " + (diffNumber - questNumber) + "体";
+            enemyInfo.innerHTML = "あと " + (diffNumber - questNumber) + "回";
             if (questNumber > diffNumber - 1) { //最後の問題をクリアしていたら
-                targetArea.innerHTML = "クリア！"
+                enemyArea.className = "mon2"; //やられ画像へ変更
+                targetArea.innerHTML = "";
+                enemyInfo.innerHTML = "あなたの勝ち！"
                 nowplaying = false; //プレイ終了状態
                 changingDisable(); //ラジオボタンを選べるようにする
             } else {
                 targetArea.innerHTML = Alphabet[words[questNumber]];
             }
         } else { //不正解のとき
-            if (HP > 1) { //まだ死なないとき
-                HP -= 1;
-                myInfo.innerHTML = "HP: " + HP + "/5"
+            HP -= 1;
+            if (HP > 0) { //まだ死なないとき
+                myInfo.innerHTML = "あなたのHP: " + HP + "/" + Max;
             } else { //もう死ぬとき
-                myInfo.innerHTML = "死んでしまった！"
+                targetArea.innerHTML = "";
+                myInfo.innerHTML = "あなたのHP: " + HP + "/" + Max;
+                enemyInfo.innerHTML = "あなたの負け..."
                 nowplaying = false; //プレイ終了状態
                 changingDisable(); //ラジオボタンを選べるようにする
             }

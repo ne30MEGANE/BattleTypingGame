@@ -23,13 +23,12 @@ h1 {
 #gamearea {
     background-color: white;
     margin: 5% 20%;
-    height: 500px;
     min-width: 600px;
     font-size: 34px;
     margin-top: 20px;
     border: #586a66 solid 5px;
     display: grid;
-    grid-template-rows: 200px 300px;
+    grid-template-rows: 250px 70px;
     grid-template-columns: 1fr 1fr;
 }
 
@@ -38,6 +37,12 @@ h1 {
     grid-row-end: 2;
     grid-column-start: 1;
     grid-column-end: 2;
+    margin: 70px;
+    font-size: 60pt;
+}
+
+.clear {
+    text-align: center;
 }
 
 #enemy {
@@ -47,35 +52,32 @@ h1 {
     grid-column-end: 3;
 }
 
-#myunit {
+.mon1 {
+    background-image: url('resources/mon1.png');
+    background-size: 200px 200px;
+    background-repeat: no-repeat;
+    background-position: 10px 25px;
+}
+
+.mon2 {
+    background-image: url('resources/mon2.png');
+    background-size: 200px 200px;
+    background-repeat: no-repeat;
+    background-position: 25px 25px;
+}
+
+#infoleft {
     grid-row-start: 2;
     grid-row-end: 3;
     grid-column-start: 1;
     grid-column-end: 2;
 }
 
-#battleinfo {
+#inforight {
     grid-row-start: 2;
     grid-row-end: 3;
     grid-column-start: 2;
     grid-column-end: 3;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr;
-}
-
-#enemyinfo {
-    grid-row-start: 1;
-    grid-row-end: 2;
-    grid-column-start: 1;
-    grid-column-end: 2;
-}
-
-#myinfo {
-    grid-row-start: 2;
-    grid-row-end: 3;
-    grid-column-start: 1;
-    grid-column-end: 2;
 }
 
 #info,
