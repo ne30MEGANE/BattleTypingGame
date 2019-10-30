@@ -107,7 +107,7 @@ function changingDisable() {
 
 function setInfomation() {
     questNumber = 0; //最初の問題に戻す
-    HP = Max; //HPをマックすに戻す
+    HP = Max; //HPをマックスに戻す
     targetArea.innerHTML = Alphabet[words[questNumber]]; //1問目を表示
     enemyInfo.innerHTML = "あと " + (diffNumber - questNumber) + "体";
     myInfo.innerHTML = "HP: " + HP + "/5"
@@ -129,7 +129,7 @@ function typeGame(evt) {
                 targetArea.innerHTML = Alphabet[words[questNumber]];
             }
         } else { //不正解のとき
-            if (HP > 0) { //まだ死なないとき
+            if (HP > 1) { //まだ死なないとき
                 HP -= 1;
                 myInfo.innerHTML = "HP: " + HP + "/5"
             } else { //もう死ぬとき
